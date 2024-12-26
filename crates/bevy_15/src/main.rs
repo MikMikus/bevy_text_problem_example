@@ -51,8 +51,12 @@ fn setup(
             min_scale: 1.0,
             ..PanCam::default()
         },
+        OrthographicProjection {
+            scale: 8.,
+            ..OrthographicProjection::default_2d()
+        },
         Transform::from_xyz(
-            (LABEL_BODY_A + LABEL_BODY_R * 2. + MARGIN) * COLS_NUM as f32 * 0.5,
+            (LABEL_BODY_A + LABEL_BODY_R * 2. + MARGIN) * (COLS_NUM + 1) as f32 * 0.5,
             (LABEL_BODY_R * 2. + MARGIN) * ROWS_NUM as f32 * 0.5,
             0.,
         ),
@@ -129,7 +133,10 @@ fn spawn_text(
                 } {
                     commands
                         .entity(text_entity)
-                        .insert(Transform::default().with_rotation(Quat::from_rotation_z(-1.571)))
+                        .insert(
+                            Transform::from_xyz(0., 0., 2.)
+                                .with_rotation(Quat::from_rotation_z(-1.571)),
+                        )
                         .set_parent(body_entity);
                 }
             }

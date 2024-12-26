@@ -2,3 +2,7 @@
 name = "bevy_14"
 version.workspace = true
 edition.workspace = true
+
+[dependencies]
+bevy = "0.14.2"
+bevy_pancam = "0.15.0"
