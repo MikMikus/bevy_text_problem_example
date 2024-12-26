@@ -3,6 +3,7 @@ use bevy::{
     prelude::*,
 };
 use bevy_pancam::{PanCam, PanCamPlugin};
+use common::{self as settings, CommonCalc};
 
 #[derive(Resource, Default)]
 struct TextDisplayMode(pub TextMode);
@@ -22,22 +23,17 @@ fn main() {
             DefaultPlugins,
             PanCamPlugin,
             FrameTimeDiagnosticsPlugin,
-            LogDiagnosticsPlugin::default(),
+            LogDiagnosticsPlugin {
+                wait_duration: std::time::Duration::from_secs(1),
+                filter: Some(vec![FrameTimeDiagnosticsPlugin::FPS]),
+                ..Default::default()
+            },
         ))
         .init_resource::<TextDisplayMode>()
         .add_systems(Startup, setup)
         .add_systems(Update, (spawn_text, despawn_text, change_text_display_mode))
         .run();
 }
-
-const COLS_NUM: usize = 48;
-const ROWS_NUM: usize = 27;
-
-const LABEL_BODY_A: f32 = 100.;
-const LABEL_BODY_R: f32 = 50.;
-const MARGIN: f32 = 10.;
-
-const FONT_SIZE: f32 = 24.;
 
 fn setup(
     mut commands: Commands,
@@ -56,18 +52,21 @@ fn setup(
             ..OrthographicProjection::default_2d()
         },
         Transform::from_xyz(
-            (LABEL_BODY_A + LABEL_BODY_R * 2. + MARGIN) * (COLS_NUM + 1) as f32 * 0.5,
-            (LABEL_BODY_R * 2. + MARGIN) * ROWS_NUM as f32 * 0.5,
+            CommonCalc::camera_center_x(),
+            CommonCalc::camera_center_y(),
             0.,
         ),
     ));
 
     // labels body
-    let shape_mesh_handel = meshes.add(Capsule2d::new(LABEL_BODY_R, LABEL_BODY_A));
-    for i in 1..=COLS_NUM {
-        let x_pos = (LABEL_BODY_A + LABEL_BODY_R * 2. + MARGIN) * i as f32;
-        for j in 1..=ROWS_NUM {
-            let y_pos = (LABEL_BODY_R * 2. + MARGIN) * j as f32;
+    let shape_mesh_handel = meshes.add(Capsule2d::new(
+        settings::LABEL_BODY_R,
+        settings::LABEL_BODY_A,
+    ));
+    for i in 1..=settings::COLS_NUM {
+        let x_pos = CommonCalc::label_x_pos(i);
+        for j in 1..=settings::ROWS_NUM {
+            let y_pos = CommonCalc::label_y_pos(j);
             let color = Color::hsl(360. * i as f32 / j as f32, 0.95, 0.7);
 
             commands.spawn((
@@ -122,11 +121,11 @@ fn spawn_text(
                 if let Some(text_entity) = match display_mode_res.0 {
                     TextMode::Text2dWithSpan => Some(TextBuilder::spawn_text_with_span(
                         &mut commands,
-                        &["Lorem", "\nipsum", "\ndolor"],
+                        &settings::MULTI_SECTION_TEXT,
                     )),
                     TextMode::Text2d => Some(TextBuilder::spawn_text(
                         &mut commands,
-                        "Lorem\nipsum\ndolor",
+                        settings::ONE_SECTION_TEXT,
                     )),
                     TextMode::Hidden => Some(TextBuilder::spawn_hidden_text(&mut commands, &[""])),
                     TextMode::None => None,
@@ -158,7 +157,7 @@ impl TextBuilder {
                     ec.spawn((
                         TextSpan::new(section.to_string()),
                         TextFont {
-                            font_size: FONT_SIZE,
+                            font_size: settings::FONT_SIZE,
                             ..TextFont::default()
                         },
                     ));
@@ -172,7 +171,7 @@ impl TextBuilder {
             .spawn((
                 Text2d::new(text),
                 TextFont {
-                    font_size: FONT_SIZE,
+                    font_size: settings::FONT_SIZE,
                     ..TextFont::default()
                 },
                 TextLayout::new_with_justify(JustifyText::Center),

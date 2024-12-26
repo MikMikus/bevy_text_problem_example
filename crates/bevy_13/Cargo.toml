@@ -4,5 +4,6 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
+common = {workspace = true}
 bevy = "0.13.1"
 bevy_pancam = "0.11.0"

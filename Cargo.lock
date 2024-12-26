@@ -489,6 +489,7 @@ version = "0.1.0"
 dependencies = [
  "bevy 0.13.2",
  "bevy_pancam 0.11.1",
+ "common",
 ]
 
 [[package]]
@@ -497,6 +498,7 @@ version = "0.1.0"
 dependencies = [
  "bevy 0.14.2",
  "bevy_pancam 0.15.0",
+ "common",
 ]
 
 [[package]]
@@ -505,6 +507,7 @@ version = "0.1.0"
 dependencies = [
  "bevy 0.15.0",
  "bevy_pancam 0.16.0",
+ "common",
 ]
 
 [[package]]
@@ -3335,6 +3338,10 @@ dependencies = [
  "bytes",
  "memchr",
 ]
+
+[[package]]
+name = "common"
+version = "0.1.0"
 
 [[package]]
 name = "concurrent-queue"

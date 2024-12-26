@@ -9,4 +9,8 @@ members = [
     "crates/bevy_15",
     "crates/bevy_14",
     "crates/bevy_13",
+    "crates/common",
 ]
+
+[workspace.dependencies]
+common = { path = "./crates/common" }
