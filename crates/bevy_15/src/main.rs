@@ -48,7 +48,7 @@ fn setup(
             ..PanCam::default()
         },
         OrthographicProjection {
-            scale: 8.,
+            scale: settings::INIT_CAMERA_ZOOM,
             ..OrthographicProjection::default_2d()
         },
         Transform::from_xyz(

@@ -50,7 +50,7 @@ fn setup(
                 0.,
             ),
             projection: OrthographicProjection {
-                scale: 8.,
+                scale: settings::INIT_CAMERA_ZOOM,
                 ..Camera2dBundle::default().projection
             },
             ..Camera2dBundle::default()

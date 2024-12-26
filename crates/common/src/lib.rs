@@ -1,5 +1,7 @@
-pub const COLS_NUM: usize = 48;
-pub const ROWS_NUM: usize = 27;
+pub const COLS_NUM: usize = 35;
+pub const ROWS_NUM: usize = 25;
+
+pub const INIT_CAMERA_ZOOM: f32 = 6.;
 
 pub const LABEL_BODY_A: f32 = 100.;
 pub const LABEL_BODY_R: f32 = 50.;
