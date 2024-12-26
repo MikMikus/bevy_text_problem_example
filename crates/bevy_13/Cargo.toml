@@ -1,0 +1,8 @@
+[package]
+name = "bevy_13"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+bevy = "0.13.1"
+bevy_pancam = "0.11.0"
