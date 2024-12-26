@@ -1,0 +1,4 @@
+[package]
+name = "bevy_15"
+version.workspace = true
+edition.workspace = true
