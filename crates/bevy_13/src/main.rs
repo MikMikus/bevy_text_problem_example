@@ -95,7 +95,7 @@ fn change_text_display_mode(
             TextMode::None => TextMode::Text2dMultiSections,
         };
 
-        println!("Change to text mode: {:?}", display_mode_res.0);
+        println!("Change text mode to: {:?}", display_mode_res.0);
     }
 }
 
