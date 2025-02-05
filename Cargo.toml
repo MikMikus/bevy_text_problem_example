@@ -10,6 +10,7 @@ members = [
     "crates/bevy_14",
     "crates/bevy_13",
     "crates/pullrequest_16991",
+    "crates/bevy_main",
     "crates/common",
 ]
 

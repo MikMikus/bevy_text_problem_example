@@ -5,5 +5,5 @@ edition.workspace = true
 
 [dependencies]
 common = {workspace = true}
-bevy = "0.15.0"
-bevy_pancam = "0.16.0"
+bevy = "0.15.1"
+bevy_pancam = "0.17.0"

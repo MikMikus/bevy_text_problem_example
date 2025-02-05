@@ -1,0 +1,9 @@
+[package]
+name = "bevy_main"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+common = {workspace = true}
+bevy = {git = "https://github.com/bevyengine/bevy", branch="main"}
+# bevy_pancam = {git = "https://github.com/johanhelsing/bevy_pancam", branch = "main"}
