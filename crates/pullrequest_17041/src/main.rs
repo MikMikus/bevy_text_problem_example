@@ -43,11 +43,6 @@ fn setup(
     // 2d camera
     commands.spawn((
         Camera2d,
-        // PanCam {
-        //     min_scale: 1.0,
-        //     ..PanCam::default()
-        // },
-        // OrthographicProjection(OrthographicProjection::default_2d()),
         Projection::from(OrthographicProjection {
             scale: settings::INIT_CAMERA_ZOOM,
             ..OrthographicProjection::default_2d()
@@ -118,7 +113,7 @@ fn spawn_text(
     if display_mode_res.0 != TextMode::None {
         for (body_entity, children) in body_query.iter() {
             // only for labels without text
-            if !children.is_some_and(|ch| ch.iter().any(|c| text_query.get(c).is_ok())) {
+            if !children.is_some_and(|ch| ch.iter().any(|c| text_query.get(*c).is_ok())) {
                 if let Some(text_entity) = match display_mode_res.0 {
                     TextMode::Text2dWithSpan => Some(TextBuilder::spawn_text_with_span(
                         &mut commands,
@@ -131,11 +126,11 @@ fn spawn_text(
                     TextMode::Hidden => Some(TextBuilder::spawn_hidden_text(&mut commands, &[""])),
                     TextMode::None => None,
                 } {
-                    commands.entity(text_entity).insert((
-                        Transform::from_xyz(0., 0., 2.)
-                            .with_rotation(Quat::from_rotation_z(-1.571)),
-                        ChildOf(body_entity),
-                    ));
+                    commands
+                        .entity(text_entity)
+                        .insert((Transform::from_xyz(0., 0., 2.)
+                            .with_rotation(Quat::from_rotation_z(-1.571)),))
+                        .set_parent(body_entity);
                 }
             }
         }

@@ -1,0 +1,9 @@
+[package]
+name = "pullrequest_17041"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+common = {workspace = true}
+bevy = {git = "https://github.com/bevyengine/bevy", rev = "refs/pull/17041/head"}
+# bevy_pancam = {git = "https://github.com/johanhelsing/bevy_pancam", branch = "main"}
