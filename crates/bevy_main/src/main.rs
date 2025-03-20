@@ -134,7 +134,9 @@ fn spawn_text(
                     commands.entity(text_entity).insert((
                         Transform::from_xyz(0., 0., 2.)
                             .with_rotation(Quat::from_rotation_z(-1.571)),
-                        ChildOf(body_entity),
+                        ChildOf {
+                            parent: body_entity,
+                        },
                     ));
                 }
             }
